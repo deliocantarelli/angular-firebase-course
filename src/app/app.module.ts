@@ -7,11 +7,13 @@ import { Firebase } from '../environments/firebase.config';
 
 
 import { AppComponent } from './app.component';
+import { CrudComponent } from './crud/crud.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CrudComponent
   ],
   imports: [
     BrowserModule,

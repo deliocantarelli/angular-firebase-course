@@ -12,6 +12,7 @@ export class AppComponent {
 
   constructor(private db: AngularFireDatabase) {
 
-    db.list<Object>('items').valueChanges().subscribe(console.log);
+    // db.list<Object>('items').valueChanges().subscribe(console.log);
+    db.object('items').valueChanges().subscribe(console.log);
   }
 }
