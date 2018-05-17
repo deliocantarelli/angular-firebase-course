@@ -8,14 +8,5 @@
     <input class="form-control" placeholder="Search">
 </div>
 <div class="container mt-5">
-    <div class="card card-strong" style="width: 500px">
-        <ul class="list-group list-group-flush">
-            <li *ngFor="let item of items" class="list-group-item">
-                <div class="row">
-                    <div class="col-6">{{item.name}}</div>
-                    <div class="col-6 text-right">{{item.value}}</div>
-                </div>
-            </li>
-        </ul>
-    </div>
+    <app-items-list [items]="items"></app-items-list>
 </div>

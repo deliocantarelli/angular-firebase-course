@@ -9,13 +9,15 @@ import { Firebase } from '../environments/firebase.config';
 import { AppComponent } from './app.component';
 import { CrudComponent } from './crud/crud.component';
 import { HomeComponent } from './home/home.component';
+import { ItemsListComponent } from './items-list/items-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CrudComponent,
-    HomeComponent
+    HomeComponent,
+    ItemsListComponent
   ],
   imports: [
     BrowserModule,
