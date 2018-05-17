@@ -8,12 +8,14 @@ import { Firebase } from '../environments/firebase.config';
 
 import { AppComponent } from './app.component';
 import { CrudComponent } from './crud/crud.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CrudComponent
+    CrudComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
