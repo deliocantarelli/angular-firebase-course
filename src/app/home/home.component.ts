@@ -9,12 +9,16 @@ import { Item } from '../shared/model/item';
 })
 export class HomeComponent implements OnInit {
   private items: Item[];
+  private filteredItems: Item[];
   constructor(private itemComponent: ItemsService) { }
 
   ngOnInit() {
     this.itemComponent.findAllItems().subscribe(items => {
-      this.items = items;
+      this.items = this.filteredItems = items;
     });
   }
 
+  onSearch(subString: string): void {
+    this.filteredItems =  this.items.filter(item => item.name.includes(subString));
+  }
 }
