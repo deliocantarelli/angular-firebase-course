@@ -12,6 +12,8 @@ import { HomeComponent } from './home/home.component';
 import { ItemsListComponent } from './items-list/items-list.component';
 import { RouterModule } from '@angular/router';
 import { routerConfig } from './router.config';
+import { MonstersListComponent } from './monsters-list/monsters-list.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { routerConfig } from './router.config';
     AppComponent,
     CrudComponent,
     HomeComponent,
-    ItemsListComponent
+    ItemsListComponent,
+    MonstersListComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
