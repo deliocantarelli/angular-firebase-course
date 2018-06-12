@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { CrudComponent } from './crud/crud.component';
 import { HomeComponent } from './home/home.component';
 import { ItemsListComponent } from './items-list/items-list.component';
+import { RouterModule } from '@angular/router';
+import { routerConfig } from './router.config';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { ItemsListComponent } from './items-list/items-list.component';
     BrowserModule,
     AngularFireModule.initializeApp(Firebase.config),
     AngularFireDatabaseModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    RouterModule.forRoot(routerConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]
