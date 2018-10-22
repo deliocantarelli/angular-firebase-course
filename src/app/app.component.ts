@@ -13,7 +13,7 @@ export class AppComponent {
   constructor(private db: AngularFireDatabase) {
 
     // db.list<Object>('items').valueChanges().subscribe(console.log);
-    db.object('items').valueChanges().subscribe(console.log);
-    db.object('monsters').valueChanges().subscribe(console.log);
+    // db.object('items').valueChanges().subscribe(console.log);
+    // db.object('monsters').valueChanges().subscribe(console.log);
   }
 }

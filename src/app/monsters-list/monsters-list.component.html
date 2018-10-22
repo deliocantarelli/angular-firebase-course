@@ -1,3 +1,11 @@
-<p>
-  monsters-list works!
-</p>
+<div class="card card-strong" style="width: 500px">
+  <ul class="list-group list-group-flush">
+      <li *ngFor="let monster of (monsters | async)" class="list-group-item">
+          <div *ngIf="monster" class="row">
+              <div class="col-4">{{monster.name}}</div>
+              <div class="col-4 text-right">{{monster.strength}}</div>
+              <button class="offset-1 col-3 btn btn-info" [routerLink]='monster.name'>View</button>
+          </div>
+      </li>
+  </ul>
+</div>

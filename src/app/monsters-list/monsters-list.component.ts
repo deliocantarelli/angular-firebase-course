@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MonsterService } from '../shared/model/monster.service';
+import { Observable } from 'rxjs';
+import { Monster } from '../shared/model/monster';
 
 @Component({
   selector: 'app-monsters-list',
@@ -7,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MonstersListComponent implements OnInit {
 
-  constructor() { }
+  monsters: Observable<Monster[]>;
+  constructor(private monsterService: MonsterService) { }
 
   ngOnInit() {
+    this.monsters = this.monsterService.findAllMonsters();
   }
 
 }

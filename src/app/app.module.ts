@@ -14,6 +14,9 @@ import { RouterModule } from '@angular/router';
 import { routerConfig } from './router.config';
 import { MonstersListComponent } from './monsters-list/monsters-list.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { ItemsService } from './shared/model/items.service';
+import { MonsterService } from './shared/model/monster.service';
+import { MonsterDetailComponent } from './monster-detail/monster-detail.component';
 
 
 @NgModule({
@@ -23,7 +26,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     HomeComponent,
     ItemsListComponent,
     MonstersListComponent,
-    NavBarComponent
+    NavBarComponent,
+    MonsterDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     AngularFireDatabaseModule,
     RouterModule.forRoot(routerConfig)
   ],
-  providers: [],
+  providers: [ItemsService, MonsterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
