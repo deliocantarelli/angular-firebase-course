@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
-import { map, switchMap, concat, merge } from 'rxjs/operators';
+import { map, switchMap, concat, merge, mergeMap, combineAll, mergeAll } from 'rxjs/operators';
 import { Monster } from './monster';
 import { Item } from './item';
 import { registerDatabase, DataSnapshot } from '@firebase/database';
@@ -22,28 +22,24 @@ export class MonsterService {
     ref => ref.orderByChild('name').equalTo(monsterName))
     .snapshotChanges();
 
-    console.log(monsterName);
 
-    return monster$.pipe(switchMap((monsters: any) => {
-      if (!monsters || monsters.length === 0) {
-        return null;
-      }
-      return this.af.list(`drop/${monsters[0].key}`).snapshotChanges();
-    }))
-    .pipe(switchMap((drops: any) => {
-      console.log(drops);
-      let previous = null;
-      for (const drop of drops) {
-        const observableTemp = this.af.object(`items/${drop.key}`).valueChanges();
-        if (!previous) {
-          previous = observableTemp;
-        } else {
-          previous = previous.pipe(merge(observableTemp));
+    return combineLatest(
+      monster$.pipe(switchMap((monsters: any) => {
+        if (!monsters || monsters.length === 0) {
+          return null;
         }
-      }
-      return previous;
-    }))
-    .pipe(map(Item.fromJSONList));
+        return this.af.list(`drop/${monsters[0].key}`).snapshotChanges();
+      }))
+      .pipe(switchMap((drops: any) => {
+        const result = drops.map(drop => {
+          return this.af.object(`items/${drop.key}`).valueChanges();
+        });
+        return combineLatest(result);
+      }))
+      .pipe(map((items: any) => {
+        return Item.fromJSONList(items);
+      }))
+    );
 
 
   }
