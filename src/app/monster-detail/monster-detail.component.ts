@@ -12,7 +12,7 @@ import { Item } from '../shared/model/item';
 })
 export class MonsterDetailComponent implements OnInit {
 
-  monster: Monster;
+  monster: Observable<Monster>;
   dropList: Observable<Item[]>;
 
   constructor(
@@ -22,10 +22,7 @@ export class MonsterDetailComponent implements OnInit {
   ngOnInit() {
     const monsterUrl = this.route.snapshot.params['name'];
 
-    this.monsterService.getMonster(monsterUrl)
-    .subscribe((monster) => {
-      this.monster = monster;
-    });
+    this.monster = this.monsterService.getMonster(monsterUrl);
     this.dropList = this.monsterService.getDropList(monsterUrl);
 
     this.dropList.subscribe(console.log);

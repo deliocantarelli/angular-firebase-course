@@ -12,6 +12,10 @@ export class ItemsService {
   constructor(private af: AngularFireDatabase) { }
 
   findAllItems(): Observable<Item[]> {
-    return this.af.list('items').valueChanges().pipe(map(Item.fromJSONList));
+    return this.af.list('items', ).valueChanges().pipe(map(Item.fromJSONList));
+  }
+
+  loadFirstItemsPage(itemName: string, pageSize: number): Observable<Item[]> {
+    return this.af.list('items', ref => ref.orderByChild('name').limitToFirst(pageSize)).valueChanges().pipe(map(Item.fromJSONList));
   }
 }

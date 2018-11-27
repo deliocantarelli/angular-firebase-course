@@ -1,6 +1,6 @@
 <div class="card mb-4 shadow-sm" style="width: 500px">
   <div class="card-header">
-    <h4 class="my-0 font-weight-normal">{{monster?.name}}</h4>
+    <h4 class="my-0 font-weight-normal">{{(monster | async)?.name}}</h4>
   </div>
   <ul class="list-group list-group-flush">
       <li *ngFor="let dropItem of (dropList | async)" class="list-group-item">

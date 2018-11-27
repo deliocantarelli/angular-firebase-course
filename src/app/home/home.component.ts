@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   constructor(private itemComponent: ItemsService) { }
 
   ngOnInit() {
-    this.itemComponent.findAllItems().subscribe(items => {
+    this.itemComponent.loadFirstItemsPage('', 3).subscribe(items => {
       this.items = this.filteredItems = items;
     });
   }
