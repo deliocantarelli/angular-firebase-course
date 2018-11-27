@@ -1,3 +1,14 @@
-<p>
-  monster-detail works!
-</p>
+<div class="card mb-4 shadow-sm" style="width: 500px">
+  <div class="card-header">
+    <h4 class="my-0 font-weight-normal">{{monster?.name}}</h4>
+  </div>
+  <ul class="list-group list-group-flush">
+      <li *ngFor="let dropItem of (dropList | async)" class="list-group-item">
+          <div *ngIf="dropItem" class="row">
+              <div class="col-4">{{dropItem.name}}</div>
+              <div class="col-4 text-right">{{dropItem.value}}</div>
+              <div class="col-4 text-right">{{dropItem.type}}</div>
+          </div>
+      </li>
+  </ul>
+</div>

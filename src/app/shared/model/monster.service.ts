@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
 import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
-import { map, switchMap, concat, merge, mergeMap, combineAll, mergeAll } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Monster } from './monster';
 import { Item } from './item';
 import { registerDatabase, DataSnapshot } from '@firebase/database';
@@ -17,14 +17,22 @@ export class MonsterService {
     return this.af.list('monsters').valueChanges().pipe(map(Monster.fromJSONList));
   }
 
+  getMonster(monsterName: string): Observable<Monster> {
+    return this.af.list('monsters',
+    ref => ref.orderByChild('name').equalTo(monsterName))
+    .valueChanges()
+    .pipe(map((monster: any) => {
+      return Monster.fromJSON(monster[0]);
+    }));
+  }
+
   getDropList(monsterName: string): Observable<Item[]> {
     const monster$ = this.af.list('monsters',
     ref => ref.orderByChild('name').equalTo(monsterName))
     .snapshotChanges();
 
 
-    return combineLatest(
-      monster$.pipe(switchMap((monsters: any) => {
+    return monster$.pipe(switchMap((monsters: any) => {
         if (!monsters || monsters.length === 0) {
           return null;
         }
@@ -38,8 +46,7 @@ export class MonsterService {
       }))
       .pipe(map((items: any) => {
         return Item.fromJSONList(items);
-      }))
-    );
+      }));
 
 
   }
