@@ -1,0 +1,9 @@
+<div class="row">
+    <div class="col-xs-12 col-12">
+      <pagination
+        (pageChanged)="pageChanged($event)"
+        [totalItems]="(totalItems | async)"
+        [itemsPerPage]="(itemsPerPage | async)">
+      </pagination>
+    </div>
+  </div>

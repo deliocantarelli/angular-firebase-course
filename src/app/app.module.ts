@@ -4,6 +4,7 @@ import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import { Firebase } from '../environments/firebase.config';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 import { AppComponent } from './app.component';
@@ -17,6 +18,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ItemsService } from './shared/model/items.service';
 import { MonsterService } from './shared/model/monster.service';
 import { MonsterDetailComponent } from './monster-detail/monster-detail.component';
+import { PageComponent } from './page/page.component';
 
 
 @NgModule({
@@ -27,14 +29,16 @@ import { MonsterDetailComponent } from './monster-detail/monster-detail.componen
     ItemsListComponent,
     MonstersListComponent,
     NavBarComponent,
-    MonsterDetailComponent
+    MonsterDetailComponent,
+    PageComponent
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(Firebase.config),
     AngularFireDatabaseModule,
     AngularFireDatabaseModule,
-    RouterModule.forRoot(routerConfig)
+    RouterModule.forRoot(routerConfig),
+    PaginationModule.forRoot()
   ],
   providers: [ItemsService, MonsterService],
   bootstrap: [AppComponent]
