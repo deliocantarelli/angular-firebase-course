@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Item } from '../shared/model/item';
+import { ItemsService } from '../shared/model/items.service';
+import { SearchService } from '../services/search.service';
 
 @Component({
   selector: 'app-items-list',
@@ -7,12 +9,17 @@ import { Item } from '../shared/model/item';
   styleUrls: ['./items-list.component.css']
 })
 export class ItemsListComponent implements OnInit {
-  @Input()
-  items: Item[];
+  private items: Item[];
 
-  constructor() { }
+  constructor(private itemComponent: ItemsService, private searchService: SearchService) { }
 
   ngOnInit() {
-  }
+    const compareFunction = (item) => item.name;
 
+    this.itemComponent.loadFirstItemsPage('', 3).subscribe(items => {
+      this.searchService.getSearchObservable().subscribe(() => {
+        this.items = this.searchService.filterArray(items, compareFunction);
+      });
+    });
+  }
 }

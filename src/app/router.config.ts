@@ -5,7 +5,7 @@ import { ItemsListComponent } from './items-list/items-list.component';
 import { MonsterDetailComponent } from './monster-detail/monster-detail.component';
 
 export const routerConfig: Route[] = [
-    { path: 'home', component: HomeComponent},
+    { path: 'home', component: ItemsListComponent},
     { path: 'monsters',
     children: [
         {
@@ -17,7 +17,7 @@ export const routerConfig: Route[] = [
         },
         ],
     },
-    // { path: 'items', component: ItemsListComponent},
+    { path: 'items', component: ItemsListComponent},
     { path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: '**', redirectTo: 'home'}
 ];
