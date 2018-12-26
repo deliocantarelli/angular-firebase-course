@@ -45,7 +45,7 @@ export class ItemsService {
       return itemsObservable;
     }))
     .pipe(map((items) => {
-      const itemsValues = items.map(item => item.payload.val()) as [];
+      const itemsValues = items.map(item => item.payload.val()) as any[];
 
       this.trimItemList(itemsValues, cachedCurrentPage);
 
@@ -77,7 +77,7 @@ export class ItemsService {
     }
   }
 
-  trimItemList(items: [], nextPage: number): void {
+  trimItemList(items: any[], nextPage: number): void {
     if (this.currentPage < nextPage) {
       items.splice(0, 1);
     } else {
