@@ -19,7 +19,7 @@ export class PageComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
-    const currentPage = event.page;
+    const currentPage = event.page - 1;
 
     this.pageService.setCurrentPage(currentPage);
   }
