@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Item } from './item';
 import { map, switchMap } from 'rxjs/operators';
@@ -16,11 +16,15 @@ export class ItemsService {
   private numberOfItems = null;
 
   constructor(private af: AngularFireDatabase, private pageService: PageService) {
-    this.af.list('items', ).valueChanges().subscribe((items) => {
-      this.numberOfItems = items.length;
+  }
 
-      this.pageService.setNumberOfItems(this.numberOfItems);
-    });
+  getNumberOfTotalItems(): Observable<number> {
+    return this.af.list('items', ).valueChanges().pipe(switchMap((items) => {
+      return Observable.create((observer) => {
+        observer.next(items.length);
+        observer.complete();
+      });
+    }));
   }
 
   findAllItems(): Observable<Item[]> {

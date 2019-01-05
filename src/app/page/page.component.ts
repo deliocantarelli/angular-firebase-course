@@ -23,4 +23,8 @@ export class PageComponent implements OnInit {
 
     this.pageService.setCurrentPage(currentPage);
   }
+
+  setTotalItems(totalItems: number) {
+    this.pageService.setNumberOfItems(totalItems);
+  }
 }

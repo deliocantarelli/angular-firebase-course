@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Item } from '../shared/model/item';
 import { ItemsService } from '../shared/model/items.service';
 import { SearchService } from '../services/search.service';
+import { PageService } from '../services/page.service';
+import { Subscription } from 'rxjs';
 
 const PAGE_SIZE = 3;
 
@@ -10,19 +12,59 @@ const PAGE_SIZE = 3;
   templateUrl: './items-list.component.html',
   styleUrls: ['./items-list.component.css']
 })
-export class ItemsListComponent implements OnInit {
+export class ItemsListComponent implements OnInit, OnDestroy {
+
+  private unfilteredAllItems: Item[];
+  private allItems: Item[];
+  private unfilteredItems: Item[];
   private items: Item[];
   private itemStartIndex = 0;
 
-  constructor(private itemComponent: ItemsService, private searchService: SearchService) { }
+  private pageItemsSubscription: Subscription;
+  private allItemsSubscription: Subscription;
+
+  constructor(private itemComponent: ItemsService, private searchService: SearchService, private pageService: PageService) { }
 
   ngOnInit() {
     const compareFunction = (item) => item.name;
 
-    this.itemComponent.loadItemsPage().subscribe(items => {
-      this.searchService.getSearchObservable().subscribe(() => {
-        this.items = this.searchService.filterArray(items, compareFunction);
-      });
+    this.setNumberOfItems();
+
+    this.pageItemsSubscription = this.itemComponent.loadItemsPage().subscribe(items => {
+      this.unfilteredItems = items;
+
+      this.items = this.searchService.filterArray(this.unfilteredItems, compareFunction);
     });
+
+    this.searchService.addSearchCallback(this.onSearchChanged.bind(this));
+  }
+  ngOnDestroy() {
+    this.searchService.removeSearchCallback(this.onSearchChanged.bind(this));
+    this.pageItemsSubscription.unsubscribe();
+    this.allItemsSubscription.unsubscribe();
+  }
+
+  setNumberOfItems() {
+    const compareFunction = (item) => item.name;
+
+    this.allItemsSubscription = this.itemComponent.findAllItems().subscribe((items) => {
+      this.unfilteredAllItems = items;
+      this.allItems = this.searchService.filterArray(this.unfilteredAllItems, compareFunction);
+
+      this.pageService.setNumberOfItems(this.unfilteredAllItems.length);
+    });
+
+  }
+
+  onSearchChanged() {
+    const compareFunction = (item) => item.name;
+
+    if (this.unfilteredItems != null) {
+      this.items = this.searchService.filterArray(this.unfilteredItems, compareFunction);
+    }
+    if (this.unfilteredAllItems != null) {
+      this.allItems = this.searchService.filterArray(this.unfilteredAllItems, compareFunction);
+    }
+
   }
 }
