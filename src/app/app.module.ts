@@ -19,6 +19,8 @@ import { ItemsService } from './shared/model/items.service';
 import { MonsterService } from './shared/model/monster.service';
 import { MonsterDetailComponent } from './monster-detail/monster-detail.component';
 import { PageComponent } from './page/page.component';
+import { ItemDetailComponent } from './item-detail/item-detail.component';
+import { ItemsListContainerComponent } from './items-list-container/items-list-container.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { PageComponent } from './page/page.component';
     MonstersListComponent,
     NavBarComponent,
     MonsterDetailComponent,
-    PageComponent
+    PageComponent,
+    ItemDetailComponent,
+    ItemsListContainerComponent
   ],
   imports: [
     BrowserModule,
