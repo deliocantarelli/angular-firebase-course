@@ -17,7 +17,7 @@ export const routerConfig: Route[] = [
         },
         ],
     },
-    { path: 'items/:itemName', component: ItemDetailComponent},
+    { path: 'items/:name', component: ItemDetailComponent},
     { path: 'items', component: ItemsListContainerComponent},
     { path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: '**', redirectTo: 'home'}

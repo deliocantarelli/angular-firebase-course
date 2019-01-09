@@ -88,4 +88,13 @@ export class ItemsService {
       items.splice(items.length - 1, 1);
     }
   }
+
+  findItemWithName(itemName): Observable<Item> {
+    return this.af.list('items',
+    ref => ref.orderByChild('name').equalTo(itemName))
+    .valueChanges().pipe(map(
+      (item: Item[]) => {
+        return Item.fromJSON(item[0]);
+      }));
+  }
 }

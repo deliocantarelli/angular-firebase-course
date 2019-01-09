@@ -1,3 +1,15 @@
-<p>
-  item-detail works!
-</p>
+<div class="container row justify-content-around button-container">
+  <button type="button" class="btn btn-primary col-3" (click)="toPrevious()">
+    Previous
+  </button>
+  <button type="button" class="btn btn-primary col-3" (click)="toNext()">
+    Next
+  </button>
+</div>
+<div class="card mb-4 shadow-sm" style="width: 500px">
+  <div class="card-header">
+    <h4 class="my-0 font-weight-normal">Item: {{(item | async)?.name}}</h4>
+    <h4 class="my-0 font-weight-normal">Type: {{(item | async)?.type}}</h4>
+    <h4 class="my-0 font-weight-normal">Value: {{(item | async)?.value}}</h4>
+  </div>
+</div>
