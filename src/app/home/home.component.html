@@ -2,7 +2,7 @@
     <input class="form-control" placeholder="Search" (keyup)="onSearch(searchInput.value)" #searchInput>
 </div>
 <div class="container mt-5">
-    <router-outlet></router-outlet>
+    <ng-content></ng-content>
 </div>
 <div class="m-3">
     <app-page></app-page>
