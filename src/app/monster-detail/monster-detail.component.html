@@ -1,3 +1,7 @@
+<div *ngIf="monster | async as monst">
+    <iframe width="260" height="150" [src]="monst.video | safeUrl">
+    </iframe>
+</div>
 <div class="card mb-4 shadow-sm" style="width: 500px">
   <div class="card-header">
     <h4 class="my-0 font-weight-normal">{{(monster | async)?.name}}</h4>

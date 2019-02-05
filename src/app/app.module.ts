@@ -21,6 +21,7 @@ import { MonsterDetailComponent } from './monster-detail/monster-detail.componen
 import { PageComponent } from './page/page.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { ItemsListContainerComponent } from './items-list-container/items-list-container.component';
+import { SafeUrlPipe } from './shared/security/safe-url.pipe';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ItemsListContainerComponent } from './items-list-container/items-list-c
     MonsterDetailComponent,
     PageComponent,
     ItemDetailComponent,
-    ItemsListContainerComponent
+    ItemsListContainerComponent,
+    SafeUrlPipe
   ],
   imports: [
     BrowserModule,
