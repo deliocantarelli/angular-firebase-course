@@ -97,4 +97,26 @@ export class ItemsService {
         return Item.fromJSON(item[0]);
       }));
   }
+
+  loadNextItem(itemName): Observable<Item> {
+    return this.af.list('items', (ref) => {
+      return ref.startAt(itemName).orderByChild('name').limitToFirst(2);
+    }).valueChanges()
+    .pipe(map((items: Array<any>) => {
+      let index = 1;
+      if (items.length === 1) {
+        index = 0;
+      }
+      return Item.fromJSON(items[index]);
+    }));
+  }
+
+  loadPreviousItem(itemName): Observable<Item> {
+    return this.af.list('items', (ref) => {
+      return ref.endAt(itemName).orderByChild('name').limitToLast(2);
+    }).valueChanges()
+    .pipe(map((items: Array<any>) => {
+      return Item.fromJSON(items[0]);
+    }));
+  }
 }
