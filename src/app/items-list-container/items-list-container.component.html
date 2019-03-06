@@ -8,4 +8,9 @@
   <div class="card card-strong" style="width: 500px">
   <app-items-list [items]="items" (selectedItem)="navigateToItem($event)"></app-items-list>
   </div>
+  <div class="row justify-content-end">
+    <button type="button" class="btn btn-primary col-3 mt-3 align-self-center" routerLink="new" [queryParams]="{ type : consumable }">
+      New
+    </button>
+  </div>
 </app-home>

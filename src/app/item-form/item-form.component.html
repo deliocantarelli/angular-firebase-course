@@ -1,0 +1,21 @@
+<form [formGroup]="form">
+  <fieldset>
+    <div class="form-group">
+      <label>Name</label>
+      <input formControlName="name" type="text" class="form-control" placeholder="Item Name">
+
+      <label>Type</label>
+      <input formControlName="type" type="text" class="form-control" placeholder="Item Type">
+
+      <label>Value</label>
+      <input formControlName="value" type="number" class="form-control" placeholder="Item Value">
+      <label *ngIf="isErrorVisible('name', 'required')">Name required</label>
+      <br>
+      <label *ngIf="isErrorVisible('type', 'required')">Type required</label>
+      <br>
+      <label *ngIf="isErrorVisible('value', 'required')">Value required</label>
+      <br>
+      <label *ngIf="isErrorVisible('value', 'validInteger')">Value has to be positive</label>
+    </div>
+  </fieldset>
+</form>

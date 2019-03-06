@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, Inject } from '@angular/core';
+import { Observable, from } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Item } from './item';
 import { map, switchMap } from 'rxjs/operators';
 import { PageService } from '../../services/page.service';
 import { Query } from '@firebase/database-types';
+import { database } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,10 @@ export class ItemsService {
   private lastItemKey = '';
   private numberOfItems = null;
 
+  ref: database.Database;
+
   constructor(private af: AngularFireDatabase, private pageService: PageService) {
+    this.ref = database();
   }
 
   getNumberOfTotalItems(): Observable<number> {
@@ -118,5 +122,15 @@ export class ItemsService {
     .pipe(map((items: Array<any>) => {
       return Item.fromJSON(items[0]);
     }));
+  }
+
+  createNewItem(item: any): Observable<any> {
+    const promise = this.ref.ref('items').push(item)
+    .then((doc) => {
+      console.log(doc);
+      return doc;
+    });
+
+    return from(promise);
   }
 }

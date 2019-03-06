@@ -22,6 +22,9 @@ import { PageComponent } from './page/page.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { ItemsListContainerComponent } from './items-list-container/items-list-container.component';
 import { SafeUrlPipe } from './shared/security/safe-url.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NewItemComponent } from './new-item/new-item.component';
+import { ItemFormComponent } from './item-form/item-form.component';
 
 
 @NgModule({
@@ -36,7 +39,9 @@ import { SafeUrlPipe } from './shared/security/safe-url.pipe';
     PageComponent,
     ItemDetailComponent,
     ItemsListContainerComponent,
-    SafeUrlPipe
+    SafeUrlPipe,
+    NewItemComponent,
+    ItemFormComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,8 @@ import { SafeUrlPipe } from './shared/security/safe-url.pipe';
     AngularFireDatabaseModule,
     AngularFireDatabaseModule,
     RouterModule.forRoot(routerConfig),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [ItemsService, MonsterService],
   bootstrap: [AppComponent]
