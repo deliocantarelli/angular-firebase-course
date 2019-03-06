@@ -25,6 +25,8 @@ import { SafeUrlPipe } from './shared/security/safe-url.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewItemComponent } from './new-item/new-item.component';
 import { ItemFormComponent } from './item-form/item-form.component';
+import { EditItemComponent } from './edit-item/edit-item.component';
+import { ItemResolver } from './shared/model/Item.resolver';
 
 
 @NgModule({
@@ -41,7 +43,8 @@ import { ItemFormComponent } from './item-form/item-form.component';
     ItemsListContainerComponent,
     SafeUrlPipe,
     NewItemComponent,
-    ItemFormComponent
+    ItemFormComponent,
+    EditItemComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,7 @@ import { ItemFormComponent } from './item-form/item-form.component';
     PaginationModule.forRoot(),
     ReactiveFormsModule
   ],
-  providers: [ItemsService, MonsterService],
+  providers: [ItemsService, MonsterService, ItemResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

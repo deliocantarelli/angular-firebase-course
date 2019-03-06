@@ -7,6 +7,12 @@ import { PageService } from '../../services/page.service';
 import { Query } from '@firebase/database-types';
 import { database } from 'firebase';
 
+export class ItemWithKey {
+  key: string;
+  item: Item;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -126,6 +132,33 @@ export class ItemsService {
 
   createNewItem(item: any): Observable<any> {
     const promise = this.ref.ref('items').push(item)
+    .then((doc) => {
+      console.log(doc);
+      return doc;
+    });
+
+    return from(promise);
+  }
+
+
+  findItemAndKeyWithName(itemName): Observable<ItemWithKey> {
+    return this.af.list('items',
+    ref => ref.orderByChild('name').equalTo(itemName))
+    .snapshotChanges().pipe(map(
+      (items) => {
+        const itemsValues = items.map(item => item.payload.val()) as any[];
+        const key: string = items[0].key;
+        const itemObject: Item = Item.fromJSON(itemsValues[0]);
+
+        return {
+          key,
+          item: itemObject
+        } as ItemWithKey;
+      }));
+  }
+
+  editItem(key: string, item: Item): Observable<any> {
+    const promise = this.ref.ref(`items/${key}`).set(item)
     .then((doc) => {
       console.log(doc);
       return doc;

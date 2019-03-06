@@ -1,23 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { validateIntegerPositive } from '../shared/validators/positive.validator';
+import { Item } from '../shared/model/item';
 
 @Component({
   selector: 'app-item-form',
   templateUrl: './item-form.component.html',
   styleUrls: ['./item-form.component.css']
 })
-export class ItemFormComponent implements OnInit {
+export class ItemFormComponent implements OnChanges {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  @Input()
+  initialValue: Item;
 
-  ngOnInit() {
+
+  constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       name: ['', Validators.required],
       type: ['', Validators.required],
       value: ['', Validators.required, validateIntegerPositive]
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.form && changes['initialValue']) {
+      this.form.patchValue(changes['initialValue'].currentValue);
+    }
   }
 
   isErrorVisible(field: string, error: string) {

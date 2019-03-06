@@ -4,6 +4,8 @@ import { MonsterDetailComponent } from './monster-detail/monster-detail.componen
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { ItemsListContainerComponent } from './items-list-container/items-list-container.component';
 import { NewItemComponent } from './new-item/new-item.component';
+import { EditItemComponent } from './edit-item/edit-item.component';
+import { ItemResolver } from './shared/model/Item.resolver';
 
 export const routerConfig: Route[] = [
     { path: 'home', component: ItemsListContainerComponent},
@@ -28,7 +30,21 @@ export const routerConfig: Route[] = [
             component: ItemsListContainerComponent
         }
     ]},
-    { path: 'items/:name', component: ItemDetailComponent},
+    { path: 'items/:name',
+        children: [
+            {
+                path: 'edit',
+                component: EditItemComponent,
+                resolve: {
+                    item: ItemResolver
+                }
+            },
+            {
+                path: '',
+                component: ItemDetailComponent,
+            }
+        ]
+    },
     { path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: '**', redirectTo: 'home'}
 ];
