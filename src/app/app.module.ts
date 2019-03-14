@@ -27,6 +27,9 @@ import { NewItemComponent } from './new-item/new-item.component';
 import { ItemFormComponent } from './item-form/item-form.component';
 import { EditItemComponent } from './edit-item/edit-item.component';
 import { ItemResolver } from './shared/model/Item.resolver';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { AuthService } from './shared/security/auth.service';
 
 
 @NgModule({
@@ -44,18 +47,21 @@ import { ItemResolver } from './shared/model/Item.resolver';
     SafeUrlPipe,
     NewItemComponent,
     ItemFormComponent,
-    EditItemComponent
+    EditItemComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(Firebase.config),
+    AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireDatabaseModule,
     RouterModule.forRoot(routerConfig),
     PaginationModule.forRoot(),
     ReactiveFormsModule
   ],
-  providers: [ItemsService, MonsterService, ItemResolver],
+  providers: [ItemsService, MonsterService, ItemResolver, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

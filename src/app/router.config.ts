@@ -6,6 +6,8 @@ import { ItemsListContainerComponent } from './items-list-container/items-list-c
 import { NewItemComponent } from './new-item/new-item.component';
 import { EditItemComponent } from './edit-item/edit-item.component';
 import { ItemResolver } from './shared/model/Item.resolver';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 export const routerConfig: Route[] = [
     { path: 'home', component: ItemsListContainerComponent},
@@ -45,6 +47,8 @@ export const routerConfig: Route[] = [
             }
         ]
     },
+    { path: 'login', component: LoginComponent},
+    { path: 'register', component: RegisterComponent},
     { path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: '**', redirectTo: 'home'}
 ];
